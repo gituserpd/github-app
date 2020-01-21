@@ -1,0 +1,89 @@
+/*
+font-family: 'Open Sans Condensed', sans-serif;
+font-family: 'Rubik', sans-serif;
+font-family: 'Quicksand', sans-serif;
+color: #09476C;
+*/
+
+
+.top{
+    background: url("../assets/top-back-2.png");
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+    min-height: 25vh;
+}
+.mid{
+    min-height: 70vh;
+}
+.bottom{
+    background: url("../assets/bottom-2.jpg");
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+    min-height: 10vh;
+}
+.branding{
+    display: flex;
+    flex-direction: row;
+    min-height: 50px;
+}
+.logo{
+    width: 90px;
+    height: 80px;
+}
+.heading{
+    line-height: 4rem;
+    font-size: 3rem;
+}
+.heading .brand-pre{
+    color: rgb(175, 21, 21);
+    text-shadow: -1px 1px 2px white;
+    font-family: 'Rubik', sans-serif;
+}
+.heading .brand-suf{
+    color: white;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.right-bar{
+    background: #09476C;
+    color: white;
+    position: relative;
+    bottom: 0;
+}
+
+/* Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575.98px) {
+    .heading{
+        line-height: 2rem;
+        font-size: 1.5rem;
+    }
+    .top{
+        min-height: 10vh;
+        display: flex;
+        flex-direction: column;
+        border-bottom:1px solid grey;
+    }
+    .bottom{
+        min-height: 5vh;
+    }
+    .nav-for-mobile{
+        position: absolute;
+    }
+
+}
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) and (max-width: 767.98px) {
+
+}
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) and (max-width: 991.98px) {
+}
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    
+}
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+    
+}

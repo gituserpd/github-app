@@ -1,0 +1,30 @@
+:host{
+    width: 100%;
+    background-image: url("../../assets/login-back.jpg");
+    background-size:100% 100% ;
+    background-repeat: no-repeat;
+}
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+.fieldset-back{
+    background-color: rgba(0, 0, 0, 0.7);
+    color:white;
+    border-radius: 20px;
+}
+.fieldset-back img{
+    background-color: white;
+    border-radius: 50%;
+}
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }

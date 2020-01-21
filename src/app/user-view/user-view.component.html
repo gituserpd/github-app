@@ -1,0 +1,150 @@
+<div class="container">
+
+    <!-- <e-status [(ngModel)]='status' [statusValue]='status'></e-status> -->
+ 
+    <div class="row top-bar p-2">
+        <div class="col-lg-4 col-sm-6 col-xs-6">
+            <a class="btn btn-danger" href="login" >LOGOUT</a>
+        </div>
+        <div class="text-status col-lg-4 col-sm-6 col-xs-6 p-2">
+            <span class="text-secondary">STATUS: </span>
+            <span *ngIf='searchedData==null&&status==null' class="text-info">
+                Search Username</span>
+            <span *ngIf='searchedData==null&&status==0' class="text-warning">
+                SEARCHING...</span>
+            <span *ngIf='searchedData!=null' class="text-success">
+                SEARCH RESULT</span>
+            <span *ngIf='searchedData==null&&status==-1' class="text-danger">
+            ERROR - Something wrong!</span>
+        </div>
+        <!-- <span class="text-secondary font-weight-bold">NETWORK ERROR!</span> -->
+        <!--SEARCH BOX-->
+        <div class="form-inline col-lg-4 col-sm-12 col-xs-12">
+            <input list="user_list" [(ngModel)]='enteredKeyword' (input)='searchSuggest(enteredKeyword)' (keyup.enter)='searchKeyword(enteredKeyword)'
+             class="form-control mr-sm-2" [value]='enteredKeyword' placeholder="Search Github User" aria-label="Search">
+                <datalist *ngIf="userList!=null" id="user_list">
+                    <option *ngFor="let user of userList.items" (click)='searchKeyword(enteredKeyword)'>
+                        {{user.login}}
+                    </option>
+                </datalist>
+            <button class="btn btn-primary my-2 my-sm-0" (click)="searchKeyword(enteredKeyword)">Search</button>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="status" *ngIf='searchedData==null&&status==null'>
+            <img class="center img-fluid" src="../../assets/no-github.png" style="margin-top:20px;">
+        </div>
+        <div class="status" *ngIf='searchedData==null&&status==0'>
+            <img class="center img-fluid" src="../../assets/searching.gif">
+        </div>
+        <div class="status" *ngIf='searchedData==null&&status==-1'>
+            <img class="center img-fluid" src="../../assets/no-result.gif">
+        </div>
+
+        <!--DISPLAY PAN-->
+        <div class="display-pan" *ngIf='searchedData!=null'>
+
+            <div class="col-lg-4 col-sm-12 col-xs-12">
+                <div class="heading-bar" style="margin-top:0;">PERSONAL DETAILS</div>
+                <div class="avatar-img mb-3 mt-2">
+                    <img class="img-fluid" [src]='searchedData.avatar_url' />
+                </div>
+                <h5 class="h-title">
+                    <div class="d-flex justify-content-between">
+                        {{searchedData.name | uppercase}}
+                        <a href='{{searchedData.html_url}}' target="_blank" class="badge badge-pill badge-light">
+                            <img src="../../assets/github-icon.png" width="30" height="30">
+                        </a>
+                    </div>
+                </h5>
+                <p class="bio">{{searchedData.bio}}</p>
+                <div class="heading-bar">PROFILE DETAIL</div>
+                <h6 *ngIf='searchedData.login'>
+                    <span class="h-title">Username : </span>
+                    <span class="h-detail">{{searchedData.login}}</span>
+                </h6>
+                <h6 *ngIf='searchedData.location'>
+                    <span class="h-title">Location : </span>
+                    <span class="h-detail">{{searchedData.location}}</span>
+                </h6>
+                <h6 *ngIf='searchedData.email'>
+                    <span class="h-title">Email : </span>
+                    <span class="h-detail">{{searchedData.email}}</span>
+                </h6>
+                <h6 *ngIf='searchedData.blog'>
+                    <span class="h-title">Blog : </span>
+                    <a [href]='searchedData.blog' target="_blank"><span class="h-detail">{{searchedData.blog}}</span></a>
+                </h6>
+                <h6 *ngIf='searchedData.created_at'>
+                    <span class="h-title">Member since : </span>
+                    <span class="h-detail">{{searchedData.created_at | date}}</span>
+                </h6>
+                <div class="heading-bar">GITHUB DETAILS</div>
+                <span class="badge badge-primary p-1 mr-2 mt-2">Public Repos : {{searchedData.public_repos}}</span>
+                <!-- <span class="badge badge-secondary p-1 mr-2 mt-2">Secondary : {{searchedData.}}</span> -->
+                <span class="badge badge-success p-1 mr-2 mt-2">Public Gist : {{searchedData.public_gists}}</span>
+                <span class="badge badge-warning p-1 mr-2 mt-2">Followers : {{searchedData.followers}}</span>
+                <span class="badge badge-info p-1 mr-2 mt-2">Following : {{searchedData.following}}</span>
+                <div class="heading-bar">FOLLOWERS</div>
+                <div  class="f-icon">
+                    <div *ngIf='followersData!=null&&followersData.length!=0' class="list-group list-group-flush" style="max-height: 200px;overflow: auto;">
+                        <a *ngFor="let follow of followersData" (click)='searchKeyword(follow.login)' class="list-group-item py-0 list-group-item-action">
+                            <small><f-icon [avatarUrl]='follow.avatar_url'></f-icon> {{follow.login}}</small>
+                        </a>
+                        <a  href="" class="list-group-item list-group-item-action py-0 pagination disabled"> 
+                            <!--*ngIf="searchedData.followers!=followersData.length"-->
+                            <small>LOAD MORE &#9660;</small>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-sm-12 col-xs-12 repository">
+
+                <div class="heading-bar" style="margin-top:0;">PUBLIC REPOSITORIES</div>
+                <div *ngIf='repoData!=null&&repoData.length==0' class="status-repo-gist">
+                    <img class="center img-fluid" src="../../assets/no-repo.png">
+                </div>
+                <div *ngIf='repoData!=null&&repoData.length>0' class="list-group list-group-flush">
+                    <a *ngFor="let repo of repoData|paginate:{itemsPerPage:5,currentPage:p}" href='{{repo.html_url}}' target="_blank" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1 text-wrap" style="color:#09476C;">{{repo.name}}</h6>
+                        <span>
+                            <small class="text-muted">{{repo.created_at|date}} </small>
+                            <small class="badge badge-secondary">Watchers : {{repo.watchers_count}}</small>
+                        </span>
+                    </div>
+                    <p class="mb-1 text-wrap">{{repo.description}}</p>
+                    <small class="text-muted">{{repo.language}}</small>
+                    </a>
+                    <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
+                </div>
+
+                <div class="heading-bar">PUBLIC GISTS</div>
+                <div *ngIf='gistsData!=null&&gistsData.length==0' class="status-repo-gist">
+                    <img class="center img-fluid" src="../../assets/no-gist.png">
+                </div>
+                <div *ngIf='gistsData!=null&&gistsData.length>0' class="list-group list-group-flush" 
+                                                style="border-bottom:2px solid rgb(219, 219, 219);margin-bottom:20px;">
+                    <a *ngFor="let gist of gistsData" href='{{gist.html_url}}' target="_blank" class="list-group-item list-group-item-action">
+                    <!-- <a *ngFor="let gist of gistsData|paginate:{itemsPerPage:5,currentPage:p2}" href='{{gist.html_url}}' target="_blank" class="list-group-item list-group-item-action"> -->
+                    <div class="d-flex w-100 justify-content-between text-truncate">
+                        <h6 *ngFor="let k of gist.files|objArr" class="mb-1">{{k.filename}}</h6>
+                        <small class="text-muted">{{gist.created_at|date}}</small>
+                    </div>
+                    <!-- <p class="mb-1">{{gist.description}}</p> -->
+                    </a>
+                    <!-- <pagination-controls id="second" class="pagination" (pageChange)="p2 = $event"></pagination-controls> -->
+                </div>
+                
+
+            </div><!--Repository class closed-->
+
+        </div><!--display-pan-->
+
+    </div><!--Row closed-->
+
+</div> <!--MAIN CONTAINER CLOSED-->

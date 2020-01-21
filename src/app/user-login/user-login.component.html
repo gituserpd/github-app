@@ -1,0 +1,21 @@
+<div class="login h-100 w-auto">
+    <div class="container text-center">
+        <div class="form-signin col-lg-4 col-md-6 col-sm-10 col-xs-12 mr-auto ml-auto">
+            <fieldset class="p-3 fieldset-back">
+                <legend>
+                    <img class="mb-4" src="{{userIconPath}}" alt="" width="72" height="72">
+                </legend>
+                <h5 class="mb-3">LOGIN TO GITHUB</h5>
+                <input type="text" [(ngModel)]='user' id="username" class="form-control" 
+                    placeholder="Username" required autofocus (change)='userAvatar(user)'>
+                <br>
+                <input type="password" [(ngModel)]='pass' id="password" class="form-control" placeholder="Password" required>
+                <div class="checkbox mb-3">
+                </div>
+                <button (click)='login()' class="btn btn-primary btn-block" type="submit">Sign in</button>
+            </fieldset>
+          </div>
+    </div>
+</div>
+
+<div>{{responce}}</div>
