@@ -8,6 +8,10 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class LoginService {
 
+//-----------------USE THIS ACCES TOKEN FOR LOGIN----------------//
+//------------8697963857b79f43164efc6390c99b0721503794-----------//
+//---------------------------------------------------------------//
+
   constructor(public http:HttpClient) {
     console.log("service constructor called");
   }
@@ -21,8 +25,8 @@ export class LoginService {
     return this.http.get(url);
   }
 
-  public loginRes():Observable<any>{
-    let url = `https://github.com/login/oauth?access_token=e0ca81ec04ec1ad59d6bb4bdc9a0daa08e785c8c&token_type=bearer`;
+  public loginRes(acs:any):Observable<any>{
+    let url = `https://api.github.com/user?access_token=${acs}`;
       return this.http.get(url);
   }
 

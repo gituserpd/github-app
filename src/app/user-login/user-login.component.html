@@ -6,16 +6,30 @@
                     <img class="mb-4" src="{{userIconPath}}" alt="" width="72" height="72">
                 </legend>
                 <h5 class="mb-3">LOGIN TO GITHUB</h5>
+                <!--
                 <input type="text" [(ngModel)]='user' id="username" class="form-control" 
                     placeholder="Username" required autofocus (change)='userAvatar(user)'>
+                <span class="badge badge-pill text-danger align-top">{{errorMessage}}</span>
                 <br>
                 <input type="password" [(ngModel)]='pass' id="password" class="form-control" placeholder="Password" required>
+                <span class="badge badge-pill text-danger align-top">{{errorMessage}}</span>
+                <br>
                 <div class="checkbox mb-3">
                 </div>
-                <button (click)='login()' class="btn btn-primary btn-block" type="submit">Sign in</button>
+                <button (click)='login()' class="btn btn-primary btn-block" type="submit" [disabled]="errorMessage!=null">LOGIN</button>
+                -->
+                <!--
+                <input type="text" [(ngModel)]='access' id="username" class="form-control" 
+                    placeholder="Access Token" required>
+                <span class="badge badge-pill text-danger align-top">{{errorMessage}}</span>
+                <br>
+                <button (click)='login(access)' class="btn btn-primary btn-block" type="submit" [disabled]="access==null&&false">LOGIN</button>
+                -->
+                <button (click)='loginToGithub()' class="btn btn-primary btn-block">LOGIN</button>
+                <!-- <a href="https://github.com/login/oauth/authorize?client_id=3ecf5c783fdf8196092b">
+                    <button class="btn btn-success btn-block" type="submit">Sign in With GitHub</button>
+                  </a> -->
             </fieldset>
           </div>
     </div>
 </div>
-
-<div>{{responce}}</div>
