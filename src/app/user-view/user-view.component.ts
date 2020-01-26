@@ -24,6 +24,7 @@ export class UserViewComponent implements OnInit {
   public accessToken: any;
   public user: any
   public loginBtn: boolean;
+  private client_id = "3ecf5c783fdf8196092b";
 
   //FOR PAGINATION
   public p: number = 1;
@@ -42,6 +43,7 @@ export class UserViewComponent implements OnInit {
       if (params['code']) {
         this.code = params['code'];
         this.accessTokenByCode(this.code);
+        this.status=2;
       } else {
         console.log("No Params")
         this.accessToken = null;
@@ -116,8 +118,8 @@ export class UserViewComponent implements OnInit {
 
   public searchKeyword = (keyword: any) => {
     if (keyword != null || keyword != undefined) {
-      this.status = 0
       this.searchedData = null;
+      this.status = 0
       this.gitService.updateUsersData(keyword);
       this.getData();
     } else {
@@ -157,24 +159,28 @@ export class UserViewComponent implements OnInit {
   public getDataUsingToken = (token: any) => {
     this.gitService.getUserByAccesToken(token).subscribe(
       data => {
+        this.status=0;
         this.user = data.login;
         this.searchKeyword(this.user);
       },
       error => {
         console.log(error.errorMessage);
+        this.status=2;
         this.loginToGithub();
       }
     )
   }
 
   public logoutByGithub = () => {
-    window.location.href = 'https://github.com/logout';
+    this.status=2;
+    window.location.href = `https://github.com/logout?client_id=${this.client_id}&post_logout_redirect_uri=http://localhost:4200`;
     this.accessToken = null;
     this.user = null;
   }
 
 
   public loginToGithub = () => {
+    this.status=2;
     window.location.href = 'https://github.com/login/oauth/authorize?client_id=3ecf5c783fdf8196092b&scope=user';
   }
 

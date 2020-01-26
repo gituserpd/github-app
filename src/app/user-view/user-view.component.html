@@ -16,7 +16,7 @@
                 </div>
             </div>
             <button *ngIf='accessToken==null||accessToken==undefined' class="btn btn-success"
-                (click)='loginToGithub()'>LOGIN</button>
+                (click)='loginToGithub()'>LOGIN BY GITHUB</button>
         </div>
         <div class="text-status col-lg-4 col-sm-6 col-xs-6 p-2">
             <span class="text-secondary">STATUS: </span>
@@ -28,6 +28,8 @@
                 SEARCH RESULT</span>
             <span *ngIf='searchedData==null&&status==-1' class="text-danger">
                 ERROR - Something wrong!</span>
+            <span *ngIf='searchedData==null&&status==2' class="text-secondary">
+                LOADING...</span>
         </div>
         <!-- <span class="text-secondary font-weight-bold">NETWORK ERROR!</span> -->
         <!--SEARCH BOX-->
@@ -48,13 +50,16 @@
     <div class="row">
 
         <div class="status" *ngIf='searchedData==null&&status==null'>
-            <img class="center img-fluid" src="../../assets/no-github.png" style="margin-top:20px;">
+            <status *ngIf='searchedData==null' [statusValue]='status' style="margin-top:20px;"></status>
         </div>
         <div class="status" *ngIf='searchedData==null&&status==0'>
-            <img class="center img-fluid" src="../../assets/searching.gif">
+            <status *ngIf='searchedData==null' [statusValue]='status'></status>
         </div>
         <div class="status" *ngIf='searchedData==null&&status==-1'>
-            <img class="center img-fluid" src="../../assets/no-result.gif">
+            <status *ngIf='searchedData==null' [statusValue]='status'></status>
+        </div>
+        <div class="status" *ngIf='searchedData==null&&status==2'>
+            <status *ngIf='searchedData==null' [statusValue]='status'></status>
         </div>
 
         <!--DISPLAY PAN-->

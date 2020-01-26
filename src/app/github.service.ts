@@ -65,19 +65,19 @@ export class GithubService {
   //=================================================//
 
   public getAccessToken(code:any): Observable<any> {
-    // let url = `https://github.com/login/oauth/access_token?client_id=${this.client_id}&client_secret=${this.client_secret}&code=${code}`;
-    // return this.http.get(url);
+    let url = `https://github.com/login/oauth/access_token?client_id=${this.client_id}&client_secret=${this.client_secret}&code=${code}`;
+    return this.http.get(url);
 
-    return this.http
-    .post<string>(
-        this.baseUrl + '/Tickets/getTicket',
-        JSON.stringify(value),
-    { headers, responseType: 'text' as 'json' }
-    )
-    .map(res => {
-        return res;
-    })
-    .catch(this.handleError);
+    // return this.http
+    // .post<string>(
+    //     this.baseUrl + '/Tickets/getTicket',
+    //     JSON.stringify(value),
+    // { headers, responseType: 'text' as 'json' }
+    // )
+    // .map(res => {
+    //     return res;
+    // })
+    // .catch(this.handleError);
 
   }
 
