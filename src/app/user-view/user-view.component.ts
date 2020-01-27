@@ -173,7 +173,7 @@ export class UserViewComponent implements OnInit {
 
   public logoutByGithub = () => {
     this.status=2;
-    window.location.href = `https://github.com/logout?client_id=${this.client_id}&post_logout_redirect_uri=http://localhost:4200`;
+    window.location.href = `https://github.com/logout`;
     this.accessToken = null;
     this.user = null;
   }
